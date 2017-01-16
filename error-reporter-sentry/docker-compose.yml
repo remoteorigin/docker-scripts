@@ -1,16 +1,16 @@
 redis:
-  image: redis
+  image: redis:3.2.6-alpine
 
 postgres:
-  image: postgres
+  image: postgres:9.2.19-alpine
   environment:
     - POSTGRES_PASSWORD=sentry
     - POSTGRES_USER=sentry
-  # volumes:
-    # - /var/lib/postgresql/data
+  volumes:
+    - /tmp/var/lib/postgresql/data:/var/lib/postgresql/data
 
 sentry:
-  image: sentry
+  image: sentry:8.12.0
   environment:
     - SENTRY_SECRET_KEY=${SENTRY_SECRET_KEY}
   links:
@@ -22,7 +22,7 @@ sentry:
     - /var/lib/sentry/files:/var/lib/sentry/files
 
 celery-beat:
-  image: sentry
+  image: sentry:8.12.0
   environment:
     - SENTRY_SECRET_KEY=${SENTRY_SECRET_KEY}
   links:
@@ -33,7 +33,7 @@ celery-beat:
   command: sentry run cron
 
 celery-worker:
-  image: sentry
+  image: sentry:8.12.0
   environment:
     - SENTRY_SECRET_KEY=${SENTRY_SECRET_KEY}
   links:
