@@ -11,7 +11,7 @@ Run the following commands:
 - `docker-compose up -d`
 
 
-⚠WARNING⚠ *instance requires 2 GB ram !*
+⚠WARNING⚠ The instance requires 2 GB ram !
 
 ##How to set change log level in the sentry worker:
 
