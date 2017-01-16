@@ -1,0 +1,48 @@
+redis:
+  image: redis
+
+postgres:
+  image: postgres
+  environment:
+    - POSTGRES_PASSWORD=sentry
+    - POSTGRES_USER=sentry
+  # volumes:
+    # - /var/lib/postgresql/data
+
+sentry:
+  image: sentry
+  environment:
+    - SENTRY_SECRET_KEY=${SENTRY_SECRET_KEY}
+  links:
+    - redis
+    - postgres
+  ports:
+    - "80:9000"
+  volumes:
+    - /var/lib/sentry/files:/var/lib/sentry/files
+
+celery-beat:
+  image: sentry
+  environment:
+    - SENTRY_SECRET_KEY=${SENTRY_SECRET_KEY}
+  links:
+    - redis
+    - postgres
+  volumes:
+    - /var/lib/sentry/files:/var/lib/sentry/files
+  command: sentry run cron
+
+celery-worker:
+  image: sentry
+  environment:
+    - SENTRY_SECRET_KEY=${SENTRY_SECRET_KEY}
+  links:
+    - redis
+    - postgres
+  volumes:
+    - /var/lib/sentry/files:/var/lib/sentry/files
+  command: sentry run worker
+
+#inspired from:https://gist.github.com/puppybits/426319191bd4981cf6c8d9b6b06c6d46
+#from https://gist.github.com/ebuildy/270f4ef3abd41e1490c1
+#and https://forum.sentry.io/t/offline-sourcemaps-not-used/548
