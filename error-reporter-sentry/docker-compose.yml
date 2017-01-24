@@ -1,7 +1,9 @@
 redis:
+  restart: always
   image: redis:3.2.6-alpine
 
 postgres:
+  restart: always
   image: postgres:9.2.19-alpine
   environment:
     - POSTGRES_PASSWORD=sentry
@@ -10,6 +12,7 @@ postgres:
     - /var/lib/postgresql/data:/var/lib/postgresql/data
 
 sentry:
+  restart: always
   image: sentry:8.12.0
   environment:
     - SENTRY_SECRET_KEY=${SENTRY_SECRET_KEY}
@@ -22,6 +25,7 @@ sentry:
     - /var/lib/sentry/files:/var/lib/sentry/files
 
 celery-beat:
+  restart: always
   image: sentry:8.12.0
   environment:
     - SENTRY_SECRET_KEY=${SENTRY_SECRET_KEY}
@@ -33,6 +37,7 @@ celery-beat:
   command: sentry run cron
 
 celery-worker:
+  restart: always
   image: sentry:8.12.0
   environment:
     - SENTRY_SECRET_KEY=${SENTRY_SECRET_KEY}
