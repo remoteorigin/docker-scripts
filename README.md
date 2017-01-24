@@ -1,7 +1,5 @@
-Docker scripts
-==============
+# Docker Scripts
 
-- [Error Reporting (using sentry.io)](error-reporter-sentry)
+- [Docker Installation](docker-installation.md)
+- [Error Reporting using sentry.io](error-reporter-sentry/README.md)
 
-
-- [Docker Cheatsheet](docker-cheatsheet.md)
