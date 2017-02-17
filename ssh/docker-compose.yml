@@ -1,0 +1,5 @@
+ssh_server:
+  restart: always
+  build: .
+  ports:
+    - "2222:22"
