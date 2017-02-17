@@ -4,5 +4,5 @@ RUN apt-get update && apt-get install -y \
     rsync \
  && rm -rf /var/lib/apt/lists/*
 
-
-RUN source init.sh
+COPY init.sh init.sh
+RUN bash init.sh
