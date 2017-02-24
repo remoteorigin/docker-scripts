@@ -4,13 +4,6 @@ First follow the Docker installation instructions from [Docker Installation](../
 
     git clone git@github.com:remoteorigin/docker-scripts.git
     cd error-reporter-sentry/
-    docker run --rm sentry config generate-secret-key
-
-The last line will be the `SENTRY_SECRET_KEY` - store it somewhere
-
-    cp .env-sample .env
-
-Edit newly created `.env` file and add your `SENTRY_SECRET_KEY`
 
 Generate SSL keys using
 
