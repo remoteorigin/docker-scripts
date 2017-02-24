@@ -5,21 +5,31 @@ First follow the Docker installation instructions from [Docker Installation](../
     git clone git@github.com:remoteorigin/docker-scripts.git
     cd error-reporter-sentry/
     docker run --rm sentry config generate-secret-key
-   
+
 The last line will be the `SENTRY_SECRET_KEY` - store it somewhere
 
     cp .env-sample .env
 
 Edit newly created `.env` file and add your `SENTRY_SECRET_KEY`
 
+Generate SSL keys using
+
+    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ssl-proxy/cert.key -out ssl-proxy/cert.crt
+
+Start docker containers and setup sentry
+
     docker-compose up -d
     docker exec -it errorreportersentry_sentry_1 sentry upgrade
+
+
 
 ### Good to know
 
 - The instance requires 2 GB ram
 - For source maps to work properly, the sentry worker needs to share a volume with the sentry web container
 - Redis might require persistence using a volume similar to postgresql
+- Exposed ports are 80 and 443
+- The server works only using SSL/HTTPS
 
 ## How to set change log level in the sentry worker
 
