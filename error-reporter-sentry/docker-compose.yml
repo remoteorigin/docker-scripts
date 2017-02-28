@@ -7,6 +7,8 @@ ssh_server:
 
   links:
     - sentry
+  volumes:
+    - /docker_vol/letsencrypt:/etc/letsencrypt
 
 redis:
   restart: always
