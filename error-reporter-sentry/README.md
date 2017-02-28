@@ -1,13 +1,8 @@
-# Error Reporting using sentry.io
 
 First follow the Docker installation instructions from [Docker Installation](../docker-installation.md) (the machine requires 2 GB ram), then continue:
 
     git clone git@github.com:remoteorigin/docker-scripts.git
     cd error-reporter-sentry/
-
-Generate SSL keys using
-
-    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ssl-proxy/cert.key -out ssl-proxy/cert.crt
 
 Start docker containers and setup sentry
 
@@ -29,3 +24,17 @@ Start docker containers and setup sentry
 - Remove  `/usr/local/lib/python2.7/site-packages/sentry/lang/javascript/processor.pyc`
 - Edit `/usr/local/lib/python2.7/site-packages/sentry/lang/javascript/processor.py` (you can use vim)
 - Add `logger.setLevel(logging.DEBUG)`
+
+## How to enable SSL
+
+###First time deploy (no existing SSL certificate)
+- Disable ssl inside *ssl-proxy/nginx.conf* (comment all lines that start with `ssl`)
+- Deploy docker containers with ssl disabled `docker-compose up --build -d`
+- Generate certs using `docker exec -it errorreportersentry_ssh_server_1 certbot certonly --agree-tos --keep-until-expiring`
+- Enable ssl inside *ssl-proxy/nginx.conf* (enable all lines that start with `ssl`)
+- Deploy docker containers with ssl enabled `docker-compose up --build -d`
+
+
+###Renew SSL certificate (every 90 days)
+- Generate certs using `docker exec -it errorreportersentry_ssh_server_1 certbot certonly --agree-tos --keep-until-expiring`
+- Restart server `docker-compose restart`
