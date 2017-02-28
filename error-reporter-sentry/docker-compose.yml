@@ -3,6 +3,7 @@ ssh_server:
   build: ssl-proxy
   ports:
     - 443:443
+    - 80:80
 
   links:
     - sentry
@@ -30,8 +31,6 @@ sentry:
     - postgres
   volumes:
     - /var/lib/sentry/files:/var/lib/sentry/files
-  ports:
-    - 80:9000
 
 celery-beat:
   restart: always
