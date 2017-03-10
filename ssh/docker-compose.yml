@@ -2,4 +2,4 @@ ssh_server:
   restart: always
   build: .
   ports:
-    - "2222:22"
+    - "32770:22"
