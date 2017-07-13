@@ -25,7 +25,7 @@ Start docker containers and setup sentry
 
 ## How to enable SSL
 
-###First time deploy (no existing SSL certificate)
+### First time deploy (no existing SSL certificate)
 
 - Disable ssl inside `ssl-proxy/nginx.conf` (comment all lines that start with `ssl`)
 - Deploy docker containers with ssl disabled `docker-compose up --build -d`
@@ -33,8 +33,7 @@ Start docker containers and setup sentry
 - Enable SSL inside `ssl-proxy/nginx.conf` (enable all lines that start with `ssl`)
 - Deploy docker containers with ssl enabled `docker-compose up --build -d`
 
-
-###Renew SSL certificate (every 90 days)
+### Renew SSL certificate (every 90 days)
 
 - Generate certs using `docker exec -it errorreportersentry_ssh_server_1 certbot certonly --agree-tos --keep-until-expiring`
 - Restart server `docker-compose restart`
